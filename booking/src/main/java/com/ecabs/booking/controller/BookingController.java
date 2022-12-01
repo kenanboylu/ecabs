@@ -24,23 +24,27 @@ import javax.validation.Valid;
 public class BookingController {
 	
 	@Autowired
-	BookingProducerService service;
+	BookingProducerService producerService;
+	
+	private static final String ROUTING_KEY_ADD = "add";
+	private static final String ROUTING_KEY_EDIT= "edit";
+	private static final String ROUTING_KEY_DELETE = "delete";
 	
 	@RequestMapping(value = "/Booking/", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> createBook(@Valid @RequestBody Booking booking) {
-		String response = service.createBook(booking);
+		String response = producerService.sendMessage(ROUTING_KEY_ADD, booking);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/Booking/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> updateBook(@Valid @PathVariable Long id, @RequestBody Booking booking) {
-		String response = service.updateBook(booking);
+		String response = producerService.sendMessage(ROUTING_KEY_EDIT, booking);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/Booking/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> deleteBook(@Valid @PathVariable Long id,  @RequestBody Booking booking) {
-		String response = service.deleteBook(booking);
+		String response = producerService.sendMessage(ROUTING_KEY_DELETE, booking);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	} 
 

@@ -1,10 +1,17 @@
 package com.ecabs.booking.model;
 
-public class TripWaypoint {
+import java.io.Serializable;
+
+public class TripWaypoint implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1356128126910198299L;
 	private Long id;
 	private String locality;
 	private Long latitude;
 	private Long longitude;
+	
 	public Long getId() {
 		return id;
 	}

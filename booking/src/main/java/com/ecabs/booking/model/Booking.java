@@ -5,11 +5,14 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.persistence.*;
+
+import io.swagger.annotations.ApiModel;
 
 
+@Entity
+@Table(name = "booking")
+@ApiModel(value = "booking model documentation", description = "Model")
 public class Booking implements Serializable{
 	
 	/**
@@ -17,16 +20,30 @@ public class Booking implements Serializable{
 	 */
 	private static final long serialVersionUID = 5297350235465961496L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	@Column
 	private String passengerName;
+	@Column
 	private String contractNumber;
+	@Column
 	private Date pickupTime;
+	@Column
     private String asap;
+	@Column
 	private Date waittingTime;
+	@Column
 	private Integer numberOfPassengers;
+	@Column
 	private BigDecimal price;
+	@Column
 	private Date createdOn;
+	@Column
 	private Date modifiedOn;
+	
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "booking_id")
 	private List<TripWaypoint> tripWaypoint;
 	
 	public Long getId() {
@@ -89,6 +106,8 @@ public class Booking implements Serializable{
 	public void setModifiedOn(Date modifiedOn) {
 		this.modifiedOn = modifiedOn;
 	}
+		
+	
 	public List<TripWaypoint> getTripWaypoint() {
 		return tripWaypoint;
 	}

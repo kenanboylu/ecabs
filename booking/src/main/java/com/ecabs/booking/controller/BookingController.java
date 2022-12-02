@@ -40,7 +40,7 @@ public class BookingController {
 	private static final String ROUTING_KEY_DELETE = "delete";
 	
 	@RequestMapping(value = "/Booking/", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ApiOperation(value = "list leaves on pending status")
+	@ApiOperation(value = "create new book")
 	public ResponseEntity<?> createBook(@Valid @RequestBody Booking booking) {
 		if(booking != null) {
 			booking.setCreatedOn(new Date());
@@ -51,7 +51,7 @@ public class BookingController {
 	}
 	
 	@RequestMapping(value = "/Booking/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ApiOperation(value = "list leaves on pending status")
+	@ApiOperation(value = "edit book")
 	public ResponseEntity<?> updateBook(@Valid @PathVariable Long id, @RequestBody Booking booking) {
 		Optional<Booking> bookingOld = repository.findById(id);
 		
@@ -72,7 +72,7 @@ public class BookingController {
 	}
 	
 	@RequestMapping(value = "/Booking/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ApiOperation(value = "list leaves on pending status")
+	@ApiOperation(value = "delete books")
 	public ResponseEntity<?> deleteBook(@Valid @PathVariable Long id) {
 		Optional<Booking> booking = repository.findById(id);
 		if(!booking.isPresent())
@@ -82,7 +82,7 @@ public class BookingController {
 	} 
 	
 	@RequestMapping(value = "/Booking/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ApiOperation(value = "list leaves on pending status")
+	@ApiOperation(value = "list books")
 	public ResponseEntity<?> getBook(@Valid @PathVariable Long id) {
 		List<Booking> response = producerService.getAllBook();
 		return new ResponseEntity<>(response, HttpStatus.OK);

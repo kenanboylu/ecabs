@@ -76,8 +76,8 @@ public class RabbitMQConfiguration {
 	}
 	
 	@Bean
-	Binding exchangeBinding(Queue messageAuditQueue, FanoutExchange fanoutExchange){
-		return BindingBuilder.bind(messageAuditQueue).to(fanoutExchange);
+	Binding exchangeBinding(DirectExchange directExchange, FanoutExchange fanoutExchange){
+		return BindingBuilder.bind(directExchange).to(fanoutExchange);
 	}
 	
 	@Bean

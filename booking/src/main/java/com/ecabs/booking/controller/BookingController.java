@@ -40,8 +40,8 @@ public class BookingController {
 	private static final String ROUTING_KEY_DELETE = "delete";
 	
 	@RequestMapping(value = "/Booking/", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ApiOperation(value = "create new book")
-	public ResponseEntity<?> createBook(@Valid @RequestBody Booking booking) {
+	@ApiOperation(value = "create new booking")
+	public ResponseEntity<?> createBooking(@Valid @RequestBody Booking booking) {
 		if(booking != null) {
 			booking.setCreatedOn(new Date());
 			booking.setModifiedOn(new Date());
@@ -51,8 +51,8 @@ public class BookingController {
 	}
 	
 	@RequestMapping(value = "/Booking/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ApiOperation(value = "edit book")
-	public ResponseEntity<?> updateBook(@Valid @PathVariable Long id, @RequestBody Booking booking) {
+	@ApiOperation(value = "edit booking")
+	public ResponseEntity<?> updateBooking(@Valid @PathVariable Long id, @RequestBody Booking booking) {
 		Optional<Booking> bookingOld = repository.findById(id);
 		
 		if(!bookingOld.isPresent())
@@ -72,8 +72,8 @@ public class BookingController {
 	}
 	
 	@RequestMapping(value = "/Booking/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ApiOperation(value = "delete books")
-	public ResponseEntity<?> deleteBook(@Valid @PathVariable Long id) {
+	@ApiOperation(value = "delete booking")
+	public ResponseEntity<?> deleteBooking(@Valid @PathVariable Long id) {
 		Optional<Booking> booking = repository.findById(id);
 		if(!booking.isPresent())
 			return new ResponseEntity<>("Record Not Found", HttpStatus.NOT_FOUND);
@@ -82,8 +82,8 @@ public class BookingController {
 	} 
 	
 	@RequestMapping(value = "/Booking/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ApiOperation(value = "list books")
-	public ResponseEntity<?> getBook(@Valid @PathVariable Long id) {
+	@ApiOperation(value = "list bookings")
+	public ResponseEntity<?> getAllBooking(@Valid @PathVariable Long id) {
 		List<Booking> response = producerService.getAllBook();
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
